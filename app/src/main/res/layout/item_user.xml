@@ -30,13 +30,15 @@
             android:id="@+id/TVName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            style="@style/NameText"/>
 
         <TextView
             android:id="@+id/TVState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            style="@style/StateName"/>
 </LinearLayout>
 </LinearLayout>
 </FrameLayout>
