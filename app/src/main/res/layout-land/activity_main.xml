@@ -24,7 +24,7 @@
        android:text="Выберете пользователя"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"/>
-        
+
     <FrameLayout
         android:background="@android:color/white"
         android:id="@+id/userPanel"
@@ -33,6 +33,7 @@
         android:layout_height="match_parent">
 
         <Button
+            android:background="@drawable/ic_keyboard_backspace_24"
             android:onClick="BackToList"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="50dp"
