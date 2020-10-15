@@ -12,12 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <FrameLayout
+        android:background="@android:color/white"
         android:id="@+id/userPanel"
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <Button
+            android:background="@drawable/ic_keyboard_backspace_24"
             android:onClick="BackToList"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="50dp"

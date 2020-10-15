@@ -13,7 +13,7 @@
     <FrameLayout
         android:background="@drawable/back_black_round"
         android:layout_margin="12dp"
-        android:layout_width="12dp"
+        android:layout_width="75dp"
         android:layout_height="75dp">
     <FrameLayout
         android:id="@+id/StateRound"

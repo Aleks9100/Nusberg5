@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                 positionActiveUser = position;
                  InitPanel(users.get(position));
                  UserVisiblity(true);
-                 GoToUserProfile(position);
              }
 
 
