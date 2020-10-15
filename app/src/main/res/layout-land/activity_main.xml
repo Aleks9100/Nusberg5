@@ -12,13 +12,21 @@
     android:layout_height="match_parent">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RV"
-        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="match_parent" />
     <FrameLayout
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height = "match_parent">
+   <TextView
+       android:layout_gravity="center"
+       android:text="Выберете пользователя"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
+        
     <FrameLayout
+        android:background="@android:color/white"
         android:id="@+id/userPanel"
         android:visibility="gone"
         android:layout_width="match_parent"
