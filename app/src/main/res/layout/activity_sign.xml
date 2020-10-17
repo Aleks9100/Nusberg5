@@ -123,10 +123,4 @@
         </LinearLayout>
     </TabHost>
 
-    <Button
-    android:text="@string/signIn"
-    android:background="@drawable/back_round_smoke_bot"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"/>
-
 </FrameLayout>
