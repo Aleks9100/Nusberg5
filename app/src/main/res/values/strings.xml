@@ -10,4 +10,5 @@
     <string name="CantSignInMessage">Неверный логин или пароль</string>
     <string name="NullParametersMessage">Пустые поля</string>
     <string name="goSignUp">Зарегистривароваться</string>
+    <string name="UserExistMessage">Пользователь существует</string>
 </resources>

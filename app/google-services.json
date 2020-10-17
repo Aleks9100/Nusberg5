@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1031399237210",
+    "firebase_url": "https://nusberg-5112a.firebaseio.com",
+    "project_id": "nusberg-5112a",
+    "storage_bucket": "nusberg-5112a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031399237210:android:4612279c9569adb1bfda63",
+        "android_client_info": {
+          "package_name": "com.example.nusberg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031399237210-thevrfi6drkbojlepsvfdvhr14541bt6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nusberg",
+            "certificate_hash": "ff8308aac5003b77404a3f8b037019b167384c5d"
+          }
+        },
+        {
+          "client_id": "1031399237210-pjepaptdj1idk6ep55vo6g3ehuf0jec8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArtIweaU99jLUBa7r9k034sOvckwIjzIo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031399237210-pjepaptdj1idk6ep55vo6g3ehuf0jec8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

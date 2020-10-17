@@ -3,9 +3,12 @@ package com.example.nusberg;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TabHost;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import static com.example.nusberg.Transform.StringNoNull;
 import static com.example.nusberg.Transform.Vibrate;
+import static com.example.nusberg.Transform.md5Custome;
 import static com.example.nusberg.UserStaticInfo.AGE;
 import static com.example.nusberg.UserStaticInfo.NAME;
 import static com.example.nusberg.UserStaticInfo.PASSWORD;
@@ -62,7 +66,7 @@ public class SignActivity extends AppCompatActivity {
     }
 
     public void SignIn(View view) {
-        if(StringNoNull(getPassword()) && StringNoNull(getLogin())) {
+        if(EditTextNoNullWithAnimation(PasswordET) && EditTextNoNullWithAnimation(LoginET)) {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference(USERS_SIGN_IN_INFO);
             myRef.addValueEventListener(new ValueEventListener() {
@@ -71,7 +75,7 @@ public class SignActivity extends AppCompatActivity {
                     String login = getLogin();
                     Object value = dataSnapshot.child(login).child(PASSWORD).getValue();
                     if (value != null) {
-                        if (value.toString().equals(getPassword())) {
+                        if (value.toString().equals(md5Custome(getPassword()))) {
                             goNext(dataSnapshot.child(PROFILE_ID).toString());
                         } else CantSignIn();
                     } else CantSignIn();
@@ -134,24 +138,54 @@ UserStaticInfo.profileId = profileId;
     }
 
     public void SignUp(View view) {
-        if(StringNoNull(getNewLogin()) && StringNoNull(getNewPassword()) && StringNoNull(getNewName()) && StringNoNull(getNewState()))
+        if(EditTextNoNullWithAnimation(NewLoginET) & EditTextNoNullWithAnimation(NewPasswordET) & EditTextNoNullWithAnimation(NewNameET) & EditTextNoNullWithAnimation(NewStateET))
         {
-            FirebaseDatabase database=FirebaseDatabase.getInstance();
-            String id = database.getReference(USERS_PROFILE_INFO).push().getKey();
-            String login = getNewLogin();
-            database.getReference(USERS_SIGN_IN_INFO).child(login).child(PASSWORD).setValue(getNewPassword());
-            database.getReference(USERS_SIGN_IN_INFO).child(login).child(PROFILE_ID).setValue(id);
+            final FirebaseDatabase database=FirebaseDatabase.getInstance();
+            DatabaseReference myRef=database.getReference(USERS_SIGN_IN_INFO).child(getNewLogin());
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.child(PASSWORD).exists())
+                    {
+                        String id = database.getReference(USERS_PROFILE_INFO).push().getKey();
+                        String login = getNewLogin();
+                        database.getReference(USERS_SIGN_IN_INFO).child(login).child(PASSWORD).setValue(md5Custome(getNewPassword()));
+                        database.getReference(USERS_SIGN_IN_INFO).child(login).child(PROFILE_ID).setValue(id);
 
-            database.getReference(USERS_PROFILE_INFO).child(id).child(AGE).setValue(getNewAge());
-            database.getReference(USERS_PROFILE_INFO).child(id).child(STATE).setValue(getNewState());
-            database.getReference(USERS_PROFILE_INFO).child(id).child(NAME).setValue(getNewName());
+                        database.getReference(USERS_PROFILE_INFO).child(id).child(AGE).setValue(getNewAge());
+                        database.getReference(USERS_PROFILE_INFO).child(id).child(STATE).setValue(getNewState());
+                        database.getReference(USERS_PROFILE_INFO).child(id).child(NAME).setValue(getNewName());
+                    }
+                    else
+                    {
+                        Toast.makeText(SignActivity.this,getResources().getText(R.string.UserExistMessage),Toast.LENGTH_SHORT).show();
+                    }
+                }
 
-            goNext(id);
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
         }
         else
         {
             Vibrate(SignActivity.this);
             Toast.makeText(SignActivity.this,getResources().getText(R.string.NullParametersMessage),Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean EditTextNoNullWithAnimation(EditText animationET) {
+        return EditTextNoNullWithAnimation(animationET,animationET.getText().toString());
+    }
+    private boolean EditTextNoNullWithAnimation(EditText animationET,String value) {
+        boolean NoNullText = StringNoNull(value);
+        Animation animation = AnimationUtils.loadAnimation(SignActivity.this,R.anim.eror_edit);
+        if(!NoNullText)
+        {
+            animationET.startAnimation(animation);
+        }
+        return NoNullText;
     }
 }
