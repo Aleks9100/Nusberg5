@@ -3,4 +3,11 @@
     <string name="nameHint">Имя</string>
     <string name="save">Сохранить</string>
     <string name="ageHint">Возраст</string>
+    <string name="loginHint">Логин</string>
+    <string name="passwordHint">Пароль</string>
+    <string name="signIn">Вход</string>
+    <string name="goSignIn">Войти</string>
+    <string name="CantSignInMessage">Неверный логин или пароль</string>
+    <string name="NullParametersMessage">Пустые поля</string>
+    <string name="goSignUp">Зарегистривароваться</string>
 </resources>
