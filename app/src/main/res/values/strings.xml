@@ -11,4 +11,5 @@
     <string name="NullParametersMessage">Пустые поля</string>
     <string name="goSignUp">Зарегистривароваться</string>
     <string name="UserExistMessage">Пользователь существует</string>
+    <string name="stateHint">Статус</string>
 </resources>
