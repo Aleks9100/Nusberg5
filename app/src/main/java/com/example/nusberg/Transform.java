@@ -1,13 +1,28 @@
 package com.example.nusberg;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Vibrator;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import static com.example.nusberg.UserStaticInfo.LOGIN;
+import static com.example.nusberg.UserStaticInfo.PASSWORD;
+
 public class Transform {
+
+    public static final String APP_PREFERENCES="mysettings";
+
+    public static void SaveUser(SharedPreferences sp,String login,String password)
+    {
+        SharedPreferences.Editor e =sp.edit();
+        e.putString(LOGIN,login);
+        e.putString(PASSWORD,password);
+        e.apply();
+    }
+
     public  static Boolean StringNoNull(String string)
     {
         if(string == null) return false;

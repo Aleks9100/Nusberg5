@@ -15,7 +15,7 @@ class UserStaticInfo
     public final static String STATE = "state";
     public static String profileId;
     public static List<User> users=new ArrayList<>();
-
+public final static String LOGIN="login";
     public UserStaticInfo() {
         if(users.size() ==0)
             AddUserInList();
