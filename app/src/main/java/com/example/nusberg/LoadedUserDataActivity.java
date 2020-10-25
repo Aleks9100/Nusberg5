@@ -1,11 +1,22 @@
 package com.example.nusberg;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import static com.example.nusberg.UserStaticInfo.USERS_PROFILE_INFO;
+import static com.example.nusberg.UserStaticInfo.profileId;
 
 public class LoadedUserDataActivity extends AppCompatActivity {
 
@@ -17,11 +28,33 @@ public class LoadedUserDataActivity extends AppCompatActivity {
         Init();
     }
 
+    private void goNext() {
+        Intent intent = new Intent(LoadedUserDataActivity.this,ProfileMapsActivity.class);
+        startActivity(intent);
+        finish();
+        myRef.removeEventListener(eventListener);
+    }
+    DatabaseReference myRef;
+    ValueEventListener eventListener= new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            goNext();
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
     private void Init() {
         mPlayer=MediaPlayer.create(this,R.raw.bob);
         mPlayer.setVolume(0.2f,0.2f);
         mPlayer.setLooping(true);
         mPlayer.start();
+
+        FirebaseDatabase database=FirebaseDatabase.getInstance();
+        myRef=database.getReference(USERS_PROFILE_INFO).child(profileId);
+        myRef.addValueEventListener(eventListener);
     }
 
     @Override

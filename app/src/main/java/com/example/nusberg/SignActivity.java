@@ -95,8 +95,9 @@ public class SignActivity extends AppCompatActivity {
                     String login = getLogin();
                     Object value = dataSnapshot.child(login).child(PASSWORD).getValue();
                     if (value != null) {
-                        if (value.toString().equals(md5Custome(getPassword()))) {
-                            goNext(dataSnapshot.child(PROFILE_ID).toString(),login,getPassword());
+                        if (value.toString().equals(md5Custome(getPassword())))
+                        {
+                            goNext(dataSnapshot.child(login).child(PROFILE_ID).getValue().toString(),login,getPassword());
                         } else CantSignIn();
                     } else CantSignIn();
                 }

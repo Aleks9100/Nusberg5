@@ -5,6 +5,8 @@ import java.util.List;
 
 class UserStaticInfo
 {
+    public  final static String POSITION_LATITUDE="Latitude";
+    public final static String POSITION_LONGITUDE="Longitude";
     public final static String POSITION = "position";
     public final static String USERS_SIGN_IN_INFO = "UsersSignInInfo";
     public final static String USERS_PROFILE_INFO="UserProfileInfo";
