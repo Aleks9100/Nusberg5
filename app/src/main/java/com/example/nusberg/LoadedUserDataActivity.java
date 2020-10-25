@@ -15,6 +15,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.nusberg.Transform.StringNoNull;
+import static com.example.nusberg.UserStaticInfo.ActiveUser;
+import static com.example.nusberg.UserStaticInfo.NAME;
 import static com.example.nusberg.UserStaticInfo.USERS_PROFILE_INFO;
 import static com.example.nusberg.UserStaticInfo.profileId;
 
@@ -28,7 +31,8 @@ public class LoadedUserDataActivity extends AppCompatActivity {
         Init();
     }
 
-    private void goNext() {
+    private void goNext(DataSnapshot dataSnapshot) {
+        ActiveUser = new User(dataSnapshot);
         Intent intent = new Intent(LoadedUserDataActivity.this,ProfileMapsActivity.class);
         startActivity(intent);
         finish();
@@ -38,7 +42,8 @@ public class LoadedUserDataActivity extends AppCompatActivity {
     ValueEventListener eventListener= new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            goNext();
+            if (StringNoNull(dataSnapshot.child(NAME).getValue().toString()))
+                goNext(dataSnapshot);
         }
 
         @Override

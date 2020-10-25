@@ -1,5 +1,11 @@
 package com.example.nusberg;
 
+import android.content.Intent;
+
+import com.google.firebase.database.DataSnapshot;
+
+import static com.example.nusberg.UserStaticInfo.NAME;
+
 class User {
     private String Name,State;
     private int Age;
@@ -10,7 +16,17 @@ class User {
         Age = age;
         StateSignal=stateSignal;
     }
-public int getStateSignal()
+
+    public User(DataSnapshot dataSnapshot) {
+        Name=dataSnapshot.child(NAME).getValue().toString();
+        State=dataSnapshot.child(State).getValue().toString();
+        try {
+            Age = Integer.parseInt(dataSnapshot.child(String.valueOf(Age)).getValue().toString());
+        }
+        catch (Exception e){}
+    }
+
+    public int getStateSignal()
 {
     return StateSignal;
 }
