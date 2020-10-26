@@ -18,10 +18,13 @@ class User {
     }
 
     public User(DataSnapshot dataSnapshot) {
-        Name=dataSnapshot.child(NAME).getValue().toString();
-        State=dataSnapshot.child(State).getValue().toString();
         try {
-            Age = Integer.parseInt(dataSnapshot.child(String.valueOf(Age)).getValue().toString());
+            Name = dataSnapshot.child(NAME).getValue().toString();
+            State = dataSnapshot.child(State).getValue().toString();
+            try {
+                Age = Integer.parseInt(dataSnapshot.child(String.valueOf(Age)).getValue().toString());
+            } catch (Exception e) {
+            }
         }
         catch (Exception e){}
     }
