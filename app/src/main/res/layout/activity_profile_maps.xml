@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileMapsActivity">
+    <FrameLayout
+        android:id="@+id/titlePanelProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -51,4 +55,16 @@
                 android:layout_height="wrap_content"/>
         </FrameLayout>
     </LinearLayout>
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/panelPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <GridView
+            android:id="@+id/PhotosGridView"
+            android:numColumns="3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </GridView>
+    </FrameLayout>
 </FrameLayout>

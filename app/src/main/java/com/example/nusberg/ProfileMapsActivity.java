@@ -6,14 +6,22 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,22 +42,61 @@ import static com.example.nusberg.UserStaticInfo.POSITION;
 import static com.example.nusberg.UserStaticInfo.POSITION_LATITUDE;
 import static com.example.nusberg.UserStaticInfo.POSITION_LONGITUDE;
 import static com.example.nusberg.UserStaticInfo.USERS_PROFILE_INFO;
+import static com.example.nusberg.UserStaticInfo.photos;
 import static com.example.nusberg.UserStaticInfo.profileId;
 
 public class ProfileMapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    View PathView;
+    View PathView,titlePanelProfile,panelPhoto;
     Location lastLocation;
     PolylineOptions rectOptions= new PolylineOptions();
     Polyline polygon;
     FirebaseDatabase database;
     private GoogleMap mMap;
     private TextView LogitudeTextView,LatitudeTextView,NameTextView;
+    private LayoutInflater inflater;
+    private Context context;
+
+    public class PhotoGridAdapter extends BaseAdapter
+    {
+
+        @Override
+        public int getCount() {
+            return photos.size();
+        }
+
+        @Override
+        public Bitmap getItem(int position) {
+            return photos.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            convertView = inflater.inflate(R.layout.item_photo,parent,false);
+            ImageView imageView = convertView.findViewById(R.id.image);
+            imageView.setImageBitmap(getItem(position));
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context,PhotoActivity.class);
+                    intent.putExtra(POSITION,position);
+                    startActivity(intent);
+                }
+            });
+            return convertView;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_maps);
+        new UserStaticInfo(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -69,7 +116,20 @@ public class ProfileMapsActivity extends AppCompatActivity implements OnMapReady
         NameTextView = findViewById(R.id.NameTextView);
         LogitudeTextView=findViewById(R.id.LogitudeTextView);
         LatitudeTextView=findViewById(R.id.LatitudeTextView);
-
+        titlePanelProfile=findViewById(R.id.titlePanelProfile);
+        panelPhoto = findViewById(R.id.panelPhoto);
+        context=this;
+        inflater=LayoutInflater.from(context);
+        GridView gridView= findViewById(R.id.PhotosGridView);
+        gridView.setAdapter(new PhotoGridAdapter());
+        titlePanelProfile.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                FrameLayout.LayoutParams margins = (FrameLayout.LayoutParams) panelPhoto.getLayoutParams();
+                margins.setMargins(0,titlePanelProfile.getHeight(),0,0);
+                panelPhoto.setLayoutParams(margins);
+            }
+        });
         NameTextView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {

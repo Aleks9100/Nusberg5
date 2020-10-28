@@ -1,5 +1,9 @@
 package com.example.nusberg;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,5 +32,19 @@ public final static String LOGIN="login";
         users.add(new User("dasd", "fas", 13,1));
         users.add(new User("dasd", "fas", 13,2));
     }
+    public static List<Bitmap> photos=new ArrayList<>();
 
+ public UserStaticInfo (Context context)
+        {
+if(photos.size() == 0) AddPhotosInList(context);
+        }
+
+    private void AddPhotosInList(Context context) {
+     photos.add(BitmapFactory.decodeResource(context.getResources(),R.drawable.ashe));
+     photos.add(BitmapFactory.decodeResource(context.getResources(),R.drawable.brig));
+     photos.add(BitmapFactory.decodeResource(context.getResources(),R.drawable.dinamit));
+     photos.add(BitmapFactory.decodeResource(context.getResources(),R.drawable.junk));
+     photos.add(BitmapFactory.decodeResource(context.getResources(),R.drawable.orisa));
+     photos.add(BitmapFactory.decodeResource(context.getResources(),R.drawable.widow));
+    }
 }
